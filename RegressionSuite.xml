@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>	
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="RegressionSuite">
+	<test name="AutoITDemo">
+		<classes>
+			<class name="spsAutomation.ImportPoTest">
+			 <methods>
+                    <include name="openSps"/>
+                     <include name="maximizeWindow"/>
+                     <include name="importOrder"/>
+             </methods>
+            </class> 
+		</classes>
+	</test>
+</suite>

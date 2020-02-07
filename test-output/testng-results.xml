@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="3" passed="3">
+  <reporter-output>
+  </reporter-output>
+  <suite name="RegressionSuite" duration-ms="13821" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:22Z">
+    <groups>
+    </groups>
+    <test name="AutoITDemo" duration-ms="13821" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:22Z">
+      <class name="spsAutomation.ImportPoTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:spsAutomation.ImportPoTest@2d8f65a4]" name="setup" is-config="true" duration-ms="36" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:08Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="openSps()[pri:1, instance:spsAutomation.ImportPoTest@2d8f65a4]" name="openSps" duration-ms="21" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:08Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openSps -->
+        <test-method status="PASS" signature="maximizeWindow()[pri:2, instance:spsAutomation.ImportPoTest@2d8f65a4]" name="maximizeWindow" duration-ms="8" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:08Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- maximizeWindow -->
+        <test-method status="PASS" signature="importOrder()[pri:3, instance:spsAutomation.ImportPoTest@2d8f65a4]" name="importOrder" duration-ms="13729" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:22Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- importOrder -->
+      </class> <!-- spsAutomation.ImportPoTest -->
+    </test> <!-- AutoITDemo -->
+  </suite> <!-- RegressionSuite -->
+</testng-results>
