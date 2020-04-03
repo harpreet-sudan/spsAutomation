@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="3" passed="3">
+<testng-results skipped="0" failed="0" ignored="12" total="16" passed="4">
   <reporter-output>
   </reporter-output>
-  <suite name="RegressionSuite" duration-ms="13821" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:22Z">
+  <suite name="RegressionSuite" duration-ms="54980" started-at="2020-04-03T10:23:32Z" finished-at="2020-04-03T10:24:27Z">
     <groups>
     </groups>
-    <test name="AutoITDemo" duration-ms="13821" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:22Z">
+    <test name="AutoITDemo" duration-ms="54980" started-at="2020-04-03T10:23:32Z" finished-at="2020-04-03T10:24:27Z">
       <class name="spsAutomation.ImportPoTest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:spsAutomation.ImportPoTest@2d8f65a4]" name="setup" is-config="true" duration-ms="36" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:08Z">
+        <test-method status="PASS" signature="setup()[pri:0, instance:spsAutomation.ImportPoTest@e874448]" name="setup" is-config="true" duration-ms="729" started-at="2020-04-03T10:23:32Z" finished-at="2020-04-03T10:23:33Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="openSps()[pri:1, instance:spsAutomation.ImportPoTest@2d8f65a4]" name="openSps" duration-ms="21" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:08Z">
+        <test-method status="PASS" signature="openSps()[pri:0, instance:spsAutomation.ImportPoTest@e874448]" name="openSps" duration-ms="25" started-at="2020-04-03T10:23:33Z" finished-at="2020-04-03T10:23:33Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- openSps -->
-        <test-method status="PASS" signature="maximizeWindow()[pri:2, instance:spsAutomation.ImportPoTest@2d8f65a4]" name="maximizeWindow" duration-ms="8" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:08Z">
+        <test-method status="PASS" signature="invoiceFunctionalAck()[pri:0, instance:spsAutomation.ImportPoTest@e874448]" name="invoiceFunctionalAck" duration-ms="21401" started-at="2020-04-03T10:23:33Z" finished-at="2020-04-03T10:23:54Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- maximizeWindow -->
-        <test-method status="PASS" signature="importOrder()[pri:3, instance:spsAutomation.ImportPoTest@2d8f65a4]" name="importOrder" duration-ms="13729" started-at="2020-02-06T10:37:08Z" finished-at="2020-02-06T10:37:22Z">
+        </test-method> <!-- invoiceFunctionalAck -->
+        <test-method status="PASS" signature="invoiceAperak()[pri:0, instance:spsAutomation.ImportPoTest@e874448]" name="invoiceAperak" duration-ms="16481" started-at="2020-04-03T10:23:54Z" finished-at="2020-04-03T10:24:11Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- importOrder -->
+        </test-method> <!-- invoiceAperak -->
+        <test-method status="PASS" signature="readNotesGridAheadAgain()[pri:0, instance:spsAutomation.ImportPoTest@e874448]" name="readNotesGridAheadAgain" duration-ms="16309" started-at="2020-04-03T10:24:11Z" finished-at="2020-04-03T10:24:27Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- readNotesGridAheadAgain -->
       </class> <!-- spsAutomation.ImportPoTest -->
     </test> <!-- AutoITDemo -->
   </suite> <!-- RegressionSuite -->

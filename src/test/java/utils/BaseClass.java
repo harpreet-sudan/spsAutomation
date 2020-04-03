@@ -11,7 +11,9 @@ public class BaseClass {
 	
 	public Properties prop;
 	String propFileName = "config.properties";
-
+	 
+	
+	  
 	
 	public void getPropValues() throws IOException {
 		try {

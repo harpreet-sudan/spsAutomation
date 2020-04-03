@@ -17,6 +17,23 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+  
+  <repositories>
+  <repository>
+    <id>sonatype-ossrh</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+  </repository>
+  <repository>
+<id>com.sikulix</id>
+<name>com.sikulix</name>
+<url>https://oss.sonatype.org/content/groups/public</url>
+<layout>default</layout>
+<snapshots>
+<enabled>true</enabled>
+<updatePolicy>always</updatePolicy>
+</snapshots>
+</repository>
+</repositories>
 
   <dependencies>
     <dependency>
@@ -58,11 +75,44 @@
     <version>1.18</version>
 </dependency>
 
+
 <dependency>
     <groupId>de.openkeyword</groupId>
     <artifactId>autoit</artifactId>
     <version>0.1.20</version>
 </dependency>
+
+<dependency>
+        <groupId>com.sikulix</groupId>
+        <artifactId>sikulixapi</artifactId>
+        <!-- <version>1.1.0</version> -->
+        <version>1.1.4-SNAPSHOT</version>
+    </dependency>
+
+<dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna-platform</artifactId>
+      <version>5.5.0</version>
+</dependency>
+
+
+
+<dependency>
+    <groupId>com.nativelibs4java</groupId>
+    <artifactId>bridj</artifactId>
+    <version>0.7.0</version>
+</dependency>
+
+<dependency>
+	  <groupId>org.apache.commons</groupId>
+	  <artifactId>commons-lang3</artifactId>
+	  <version>3.9</version>
+	</dependency>
+
+
+ 
+
+
     
     
     

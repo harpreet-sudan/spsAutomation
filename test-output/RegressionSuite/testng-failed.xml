@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [RegressionSuite]">
+  <test thread-count="5" name="AutoITDemo(failed)">
+    <classes>
+      <class name="spsAutomation.ImportPoTest">
+        <methods>
+          <include name="invoiceFunctionalAck"/>
+          <include name="invoiceAperak"/>
+          <include name="setup"/>
+          <include name="readNotesGridAheadAgain"/>
+        </methods>
+      </class> <!-- spsAutomation.ImportPoTest -->
+    </classes>
+  </test> <!-- AutoITDemo(failed) -->
+</suite> <!-- Failed suite [RegressionSuite] -->

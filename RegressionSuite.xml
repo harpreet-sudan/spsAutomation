@@ -7,9 +7,23 @@
 			 <methods>
                     <include name="openSps"/>
                      <include name="maximizeWindow"/>
+                      <exclude name="modifyImportPath"/>
+                      <exclude name="deleteImportPath"/>
                      <include name="importOrder"/>
+                     <include name="clickTheGrid"/>
+                     <include name="basicWorkflow"/>
+                     <include name="outstandingAhead"/>
+                     <include name="partiallFilledAhead"/>
+                     <include name="completeOrderAhead"/>
+                     <include name="waitingASNAhead"/>
+                     <include name="readNotesGridAhead"/>
+                      <include name="sendInvoice"/>
+                       <include name="invoiceFunctionalAck"/>
+                        <include name="invoiceAperak"/>
+                       <include name="readNotesGridAheadAgain"/>
+             			 <include name="completeStatusVerify"/>            
              </methods>
-            </class> 
-		</classes>
+            </class>           
+         </classes>
 	</test>
 </suite>
