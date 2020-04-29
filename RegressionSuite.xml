@@ -5,25 +5,29 @@
 		<classes>
 			<class name="spsAutomation.ImportPoTest">
 			 <methods>
-                    <include name="openSps"/>
-                     <include name="maximizeWindow"/>
+                    <include name="openABS"/>
+               <!--      <include name="maximizeWindow"/>
                       <exclude name="modifyImportPath"/>
-                      <exclude name="deleteImportPath"/>
+                      <exclude name="deleteImportPath"/> -->
                      <include name="importOrder"/>
                      <include name="clickTheGrid"/>
-                     <include name="basicWorkflow"/>
-                     <include name="outstandingAhead"/>
-                     <include name="partiallFilledAhead"/>
-                     <include name="completeOrderAhead"/>
-                     <include name="waitingASNAhead"/>
-                     <include name="readNotesGridAhead"/>
-                      <include name="sendInvoice"/>
-                       <include name="invoiceFunctionalAck"/>
-                        <include name="invoiceAperak"/>
-                       <include name="readNotesGridAheadAgain"/>
+                   
+                     
+                       <include name="changeStatusToPending"/>
+                      <include name="sendPOAAndChangeToOutstanding"/> 
+                     <include name="stepsAfterOutstanding"/> 
+<!--                      <include name="rePickOrder"/>   -->
+                  
+                    <include name="partShipOrder"/>
+<!--                      <include name="completeOrder"/> -->
+                    <include name="waitingForFunctionalAck"/>
+                      <include name="waitingForASNAperak"/>
+                       <include name="sendInvoice"/>
+                        <include name="waitingInvoiceFunctionalAck"/>
+                       <include name="invoiceAperak"/>
              			 <include name="completeStatusVerify"/>            
              </methods>
-            </class>           
+            </class>               
          </classes>
 	</test>
 </suite>
