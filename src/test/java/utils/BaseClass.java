@@ -21,6 +21,7 @@ public class BaseClass {
 	FileInputStream file;
 
 	public Properties prop;
+	public static String Client = "";
 	String propFileName = "config.properties";
 	private final ConfigReader configReader = ConfigReader.getConfigReader();
 	public static AutoItX autoitObj;
@@ -54,7 +55,7 @@ public class BaseClass {
 		System.out.println("url is-------" + resourceFolderURL);
 		basePath = resourceFolderURL.toURI().getPath() + "/";
 
-		System.out.println("basePath is**********" + (basePath + configReader.inputParams.get("cancelledImagePath")));
+	//	System.out.println("basePath is**********" + (basePath + configReader.inputParams.get("cancelledImagePath")));
 
 		screen = new Screen();
 

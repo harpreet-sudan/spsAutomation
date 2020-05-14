@@ -9,6 +9,7 @@ import com.typesafe.config.ConfigFactory;
 public class ConfigReader {
 
 	public Map<String, String> inputParams = new HashMap<>();
+	public Map<String, String> amazonInputParams = new HashMap<>();
 
 	private static ConfigReader configReader;
 	public Config config = ConfigFactory.parseResources("application.conf");
@@ -125,6 +126,17 @@ public class ConfigReader {
 		inputParams.put("UnpickedOrderTabClicked", config.getString("conf.InputParams.UnpickedOrderTabClicked"));
 		inputParams.put("OrdersBeingPicked", config.getString("conf.InputParams.OrdersBeingPicked"));
 		inputParams.put("PartShipOrder", config.getString("conf.InputParams.PartShipOrder"));
+
+		amazonInputParams.put("drakesImage", config.getString("conf.AmazonInputParams.drakesImage"));
+		amazonInputParams.put("OrderWindowTitleForAmazon",
+				config.getString("conf.AmazonInputParams.OrderWindowTitleForAmazon"));
+		amazonInputParams.put("AmazonPOFilePath", config.getString("conf.AmazonInputParams.AmazonPOFilePath"));
+		amazonInputParams.put("AmazonRp", config.getString("conf.AmazonInputParams.AmazonRp"));
+		amazonInputParams.put("ShipmentOption", config.getString("conf.AmazonInputParams.ShipmentOption"));
+		amazonInputParams.put("AmazonConsignment", config.getString("conf.AmazonInputParams.AmazonConsignment"));
+		amazonInputParams.put("AmazonDocketNumber", config.getString("conf.AmazonInputParams.AmazonDocketNumber"));
+		amazonInputParams.put("AmazonContainerReferenceNumber",
+				config.getString("conf.AmazonInputParams.AmazonContainerReferenceNumber"));
 
 	}
 

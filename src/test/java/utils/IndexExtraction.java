@@ -24,10 +24,30 @@ public class IndexExtraction extends BaseClass {
 	public int indexOfInvoicePlusInINV;
 	public int indexofFirstPlusInINV;
 	public int indexofSecondPlusInINV;
+	//AMAZON
+	public int indexOfsecondstarAfterSearchString;
+	public int indexOfthirdstarAfterSearchString;
+	public int indexOffourthstarAfterSearchString;
 
 	@Test
 	public void setTheIndexes(String sourceFile) throws IOException {
 
+		if(Client.equals("AMAZON")) {
+			Path sourceFilePath = Paths.get(sourceFile);
+			String contentsOfSourceFile = new String(Files.readAllBytes(Paths.get(sourceFilePath.toFile().getPath())));
+			// Below three indexes are for PO
+			indexOfSearchString = contentsOfSourceFile.indexOf("BEG*");
+			System.out.println("Index of B in BEG*"+indexOfSearchString);
+			indexOfsecondstarAfterSearchString = contentsOfSourceFile.indexOf("*", indexOfSearchString + 4);
+			System.out.println("Index of Second star after BEG*"+indexOfsecondstarAfterSearchString);
+			indexOfthirdstarAfterSearchString = contentsOfSourceFile.indexOf("*", indexOfsecondstarAfterSearchString + 3);
+			System.out.println("Index of Third star after Second star" + indexOfthirdstarAfterSearchString);
+			indexOffourthstarAfterSearchString = contentsOfSourceFile.indexOf("*", indexOfthirdstarAfterSearchString + 3);
+			System.out.println("Index of fourth star after third star" + indexOffourthstarAfterSearchString);
+
+		}
+		else if (Client.equals("ACCENT"))
+		{
 		if (sourceFile == configReader.inputParams.get("POOrderFilePath") || sourceFile.contains("DSA")
 				|| (sourceFile.contains("INV") && !sourceFile.contains("APERAK"))
 				|| sourceFile == PoOrderFilename.toString()) {
@@ -35,9 +55,10 @@ public class IndexExtraction extends BaseClass {
 			String contentsOfSourceFile = new String(Files.readAllBytes(Paths.get(sourceFilePath.toFile().getPath())));
 			// Below three indexes are for PO
 			indexOfSearchString = contentsOfSourceFile.indexOf("BGM+");
-			indexOfSecondPlusAfterSearchString = contentsOfSourceFile.indexOf("+", indexOfSearchString + 4);
+			indexOfSecondPlusAfterSearchString = contentsOfSourceFile.indexOf("+", indexOfSearchString + 4);		
 			indexOfThirdplusAfterSearchString = contentsOfSourceFile.indexOf("+",
 					indexOfSecondPlusAfterSearchString + 1);
+						
 			// Below three indexes are from DSA
 			indexOfFourPlusInDSA = contentsOfSourceFile.indexOf("++++");
 			// System.out.println("indexOfFourPlusInDSA in DSA is "+indexOfFourPlusInDSA);
@@ -93,5 +114,6 @@ public class IndexExtraction extends BaseClass {
 
 		}
 
+	}
 	}
 }

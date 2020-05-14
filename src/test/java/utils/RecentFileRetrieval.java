@@ -19,6 +19,12 @@ public class RecentFileRetrieval extends BaseClass {
 	private final ConfigReader configReader = ConfigReader.getConfigReader();
 	public File TempMostFile;
 	IndexExtraction IndexExt = new IndexExtraction();
+	public Path PoOrderFilePath;
+	public String contents = "";
+	public String filename = "";
+	public String FirstPartOfContents;
+	public String LastPartOfContents ;
+
 
 	public static void fileRetrieval(String sourceFilePath, String targetCode) throws IOException {
 
@@ -207,26 +213,73 @@ public class RecentFileRetrieval extends BaseClass {
 
 	public void updatePOFile() throws IOException {
 		// RecentFileRetrieval.fileRetrieval(sourcePath,fileInitials);
-		Path PoOrderFilePath;
-		if (Paths.get(configReader.inputParams.get("POOrderFilePath")).toFile().exists()) {
-			IndexExt.setTheIndexes(configReader.inputParams.get("POOrderFilePath"));
-			PoOrderFilePath = Paths.get(configReader.inputParams.get("POOrderFilePath"));
-		} else {
-			// this means file is not in import path and we need the file name from archive
-			// if it exists.
-			// Reading PO file into String
+		
+		switch(Client) {
+		case "ACCENT":
+			
+			System.out.println("Client is inside switch 220 "+Client);
+			if (Paths.get(configReader.inputParams.get("POOrderFilePath")).toFile().exists()) {
+				IndexExt.setTheIndexes(configReader.inputParams.get("POOrderFilePath"));
+				
+				System.out.println("after nex set "+Client);
+				
+				PoOrderFilePath = Paths.get(configReader.inputParams.get("POOrderFilePath"));
+				
+				System.out.println("PoOrderFilePath"+PoOrderFilePath);
+				System.out.println("PoOrderFilename"+PoOrderFilename);
+			} else {
+				// this means file is not in import path and we need the file name from archive
+				// if it exists.
+				// Reading PO file into String
 
-			IndexExt.setTheIndexes(PoOrderFilename.toString());
-			PoOrderFilePath = PoOrderFilename;
+				IndexExt.setTheIndexes(PoOrderFilename.toString());
+				PoOrderFilePath = PoOrderFilename;
+								
+			}
+			break;
+			
+		case "AMAZON":
+			if (Paths.get(configReader.amazonInputParams.get("AmazonPOFilePath")).toFile().exists()) {
+				IndexExt.setTheIndexes(configReader.amazonInputParams.get("AmazonPOFilePath"));
+				PoOrderFilePath = Paths.get(configReader.amazonInputParams.get("AmazonPOFilePath"));
+			} else {
+				// this means file is not in import path and we need the file name from archive
+				// if it exists.
+				// Reading PO file into String
+
+				IndexExt.setTheIndexes(PoOrderFilename.toString());
+				PoOrderFilePath = PoOrderFilename;
+			}
+			break;
 		}
 
-		String contents = new String(Files.readAllBytes(Paths.get(PoOrderFilePath.toFile().getPath())));
-
-		String filename = contents.substring(IndexExt.indexOfSecondPlusAfterSearchString + 1,
-				IndexExt.indexOfThirdplusAfterSearchString);
+		//AMAZON
+		//String filename = contents.substring(IndexExt.indexOfthirdstarAfterSearchString +1, IndexExt.indexOffourthstarAfterSearchString);
 
 		// search if the filename has any numeric value in it. For example filename =
 		// "abc123". below code should return 123
+		
+		switch(Client) {
+		case "ACCENT":
+		 {
+			 contents = new String(Files.readAllBytes(Paths.get(PoOrderFilePath.toFile().getPath())));
+				
+		//		System.out.println("contents"+contents);
+				filename = contents.substring(IndexExt.indexOfSecondPlusAfterSearchString + 1,
+				IndexExt.indexOfThirdplusAfterSearchString);
+		//		System.out.println("filename"+filename);
+		  break;
+		 }
+		case "AMAZON":
+		{
+			contents = new String(Files.readAllBytes(Paths.get(PoOrderFilePath.toFile().getPath())));
+			filename = contents.substring(IndexExt.indexOfthirdstarAfterSearchString +1, IndexExt.indexOffourthstarAfterSearchString);
+	
+			break;
+		}
+		}
+		
+		
 		String patternStr = "[0-9]";
 		Pattern pattern = Pattern.compile(patternStr);
 		Matcher matcher = pattern.matcher(filename);
@@ -252,10 +305,26 @@ public class RecentFileRetrieval extends BaseClass {
 		}
 
 		// update the contents of PO with updated filename
-		String FirstPartOfContents = contents.substring(0, IndexExt.indexOfSecondPlusAfterSearchString + 1);
-		String LastPartOfContents = contents.substring(IndexExt.indexOfThirdplusAfterSearchString);
+		
+		switch(Client) {
+		case "ACCENT":
+		 {
+			 System.out.println("indexOfSearchString accent "+IndexExt.indexOfSecondPlusAfterSearchString);
+			 System.out.println("indexOfSearchString accent "+IndexExt.indexOfThirdplusAfterSearchString);
+			 FirstPartOfContents = contents.substring(0, IndexExt.indexOfSecondPlusAfterSearchString + 1);
+		     LastPartOfContents = contents.substring(IndexExt.indexOfThirdplusAfterSearchString);
+		     contents = FirstPartOfContents + filename + LastPartOfContents;
+		  
+		  break;
+		 }
+		case "AMAZON":
+		{
+		FirstPartOfContents = contents.substring(0, IndexExt.indexOfthirdstarAfterSearchString + 1);
+		LastPartOfContents = contents.substring(IndexExt.indexOffourthstarAfterSearchString);
 		contents = FirstPartOfContents + filename + LastPartOfContents;
-
+		break;
+		}
+		}
 		Files.write(PoOrderFilePath, contents.getBytes());
 
 		// Update the target file

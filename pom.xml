@@ -96,7 +96,6 @@
 </dependency>
 
 
-
 <dependency>
     <groupId>com.nativelibs4java</groupId>
     <artifactId>bridj</artifactId>

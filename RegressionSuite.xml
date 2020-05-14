@@ -1,33 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>	
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="RegressionSuite">
-	<test name="AutoITDemo">
+	<test preserve-order="true" name="AutoITDemo">
+
+		<groups>
+			<dependencies>
+				<group name="AmazonTest" depends-on="AccentTest" />
+			</dependencies>
+		</groups>
+
 		<classes>
 			<class name="spsAutomation.ImportPoTest">
-			 <methods>
-                    <include name="openABS"/>
-               <!--      <include name="maximizeWindow"/>
-                      <exclude name="modifyImportPath"/>
-                      <exclude name="deleteImportPath"/> -->
-                     <include name="importOrder"/>
-                     <include name="clickTheGrid"/>
-                   
-                     
-                       <include name="changeStatusToPending"/>
-                      <include name="sendPOAAndChangeToOutstanding"/> 
-                     <include name="stepsAfterOutstanding"/> 
-<!--                      <include name="rePickOrder"/>   -->
-                  
-                    <include name="partShipOrder"/>
-<!--                      <include name="completeOrder"/> -->
-                    <include name="waitingForFunctionalAck"/>
-                      <include name="waitingForASNAperak"/>
-                       <include name="sendInvoice"/>
-                        <include name="waitingInvoiceFunctionalAck"/>
-                       <include name="invoiceAperak"/>
-             			 <include name="completeStatusVerify"/>            
-             </methods>
-            </class>               
-         </classes>
+				<methods>
+					<include name="openABS" />
+					<include name="importOrder" />
+					<include name="clickTheGrid" />
+					<include name="changeStatusToPending" />
+					<include name="sendPOAAndChangeToOutstanding" />
+					<include name="stepsAfterOutstanding" />
+					<include name="rePickOrder" />
+					<include name="partShipOrder" />
+					<include name="completeOrder" />
+					<include name="waitingForFunctionalAck" />
+					<include name="waitingForASNAperak" />
+					<include name="sendInvoice" />
+					<include name="waitingInvoiceFunctionalAck" />
+					<include name="invoiceAperak" />
+					<include name="completeStatusVerify" /> 
+				</methods>
+			</class>
+			
+				<class name="spsAutomation.AmazonTest">
+					<methods>
+						<include name="openABSForAmazon" />
+					    <include name="importAmazonOrder" />
+						<include name="clickInsideAmazonGrid" />
+						<include name="changeStatusToPendingForAmazon" />
+						<include name="sendPOAAndChangeToOutstandingForAmazon" />
+						<include name="stepsAfterOutstandingForAmazon" />
+						<include name="completeOrderForAmazon" />
+						<include name="sendInvoiceForAmazon" />
+						<include name="completeStatusVerifyForAmazon" /> 
+
+					</methods>
+				</class>
+			</classes>
 	</test>
 </suite>

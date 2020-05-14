@@ -20,7 +20,7 @@ public class Helper extends BaseClass {
 	private final ConfigReader configReader = ConfigReader.getConfigReader();
 	private final Screen screen = new Screen();
 
-	public void readNotes() throws FindFailed, InterruptedException {
+	public void readNotes(String WindowTitle) throws FindFailed, InterruptedException {
 		// Read Notes
 		
 		Thread.sleep(3000);
@@ -28,19 +28,25 @@ public class Helper extends BaseClass {
 		Pattern pendingStatus = new Pattern(basePath + configReader.inputParams.get("PendingImagePath"));
 //		Pattern cancelledStatus = new Pattern(configReader.inputParams.get("cancelledImagePath"));
 		if (screen.exists(pendingStatus) != null) {
-			// Pattern pendingImage = new
-			// Pattern(basePath+configReader.inputParams.get("PendingImagePath"));
-//				autoHelper.controlClick("Modify Order", "", "[CLASS:TButton; INSTANCE:1]");	
+		
 			screen.wait(pendingStatus.similar((float) 0.90), 5).doubleClick();
 			Thread.sleep(3000);
-			autoitObj.controlClick(configReader.inputParams.get("BrandPartnerTitle"), "",
-					configReader.inputParams.get("ReadNotesButton"));
-			Thread.sleep(2000);
+		
+				autoitObj.controlClick(WindowTitle, "",
+						configReader.inputParams.get("ReadNotesButton"));
+				Thread.sleep(2000);
+			
+			
 			autoitObj.controlClick(configReader.inputParams.get("OrderNoteTitle"), "",
 					configReader.inputParams.get("UpdateButton"));
 			Thread.sleep(2000);
-			autoitObj.controlClick(configReader.inputParams.get("BrandPartnerTitle"), "",
-					configReader.inputParams.get("UpdateButton"));
+			
+				autoitObj.controlClick(WindowTitle, "",
+						configReader.inputParams.get("UpdateButton"));
+				Thread.sleep(2000);
+			
+//			autoitObj.controlClick(configReader.inputParams.get("BrandPartnerTitle"), "",
+//					configReader.inputParams.get("UpdateButton"));
 			Assert.assertTrue((screen.exists(configReader.inputParams.get("ReadNotesImagePath")) != null));
 
 			// Status = "OUTSTANDING";
@@ -52,15 +58,23 @@ public class Helper extends BaseClass {
 			Pattern readnotesgrid = new Pattern(configReader.inputParams.get("readnotesGrid"));
 			screen.wait(readnotesgrid.similar((float) 0.90), 5).doubleClick();
 			Thread.sleep(3000);
+			
+			
+				autoitObj.controlClick(WindowTitle, "",
+						configReader.inputParams.get("ReadNotesButton"));
+				Thread.sleep(2000);
+			
+			
+			
 
-			autoitObj.controlClick(configReader.inputParams.get("BrandPartnerTitle"), "",
-					configReader.inputParams.get("ReadNotesButton"));
-			Thread.sleep(3000);
+//			autoitObj.controlClick(configReader.inputParams.get("BrandPartnerTitle"), "",
+//					configReader.inputParams.get("ReadNotesButton"));
+//			Thread.sleep(3000);
 			autoitObj.controlClick(configReader.inputParams.get("OrderNoteTitle"), "",
 					configReader.inputParams.get("UpdateButton"));
 			Thread.sleep(3000);
 			// Thread.sleep(3000);
-			autoitObj.controlClick(configReader.inputParams.get("BrandPartnerTitle"), "",
+			autoitObj.controlClick(WindowTitle, "",
 					configReader.inputParams.get("UpdateButton"));
 			Assert.assertTrue((screen.exists(configReader.inputParams.get("ReadNotesImagePath")) != null));
 
@@ -70,9 +84,9 @@ public class Helper extends BaseClass {
 
 	@Test
 	public void modifyOrderLevelFour() throws Exception {
-		Pattern UnpickedOrderTab = new Pattern(basePath + configReader.inputParams.get("UnpickedOrderTab"));
-		screen.wait(UnpickedOrderTab.similar((float) 0.99), 5).click();
-		Thread.sleep(3000);
+//		Pattern UnpickedOrderTab = new Pattern(basePath + configReader.inputParams.get("UnpickedOrderTab"));
+//		screen.wait(UnpickedOrderTab.similar((float) 0.99), 5).click();
+//		Thread.sleep(3000);
 
 		if (screen.exists(configReader.inputParams.get("OutstandingImagePath")) != null) {
 
@@ -80,20 +94,39 @@ public class Helper extends BaseClass {
 			screen.wait(outstanding.similar((float) 0.90), 5).doubleClick();
 			Thread.sleep(3000);
 
-		} else if (screen.exists(configReader.inputParams.get("completeOrderMenuPath")) != null) {
-
-			Pattern outstanding = new Pattern(configReader.inputParams.get("completeOrderMenuPath"));
-			screen.wait(outstanding.similar((float) 0.90), 5).doubleClick();
+		} else {
+			Pattern completeOrderMenu = new Pattern(configReader.inputParams.get("completeOrderMenuButtonPath"));
+			screen.wait(completeOrderMenu.similar((float) 0.90), 5).click();
 			Thread.sleep(3000);
-		}
-
-		autoHelper.controlClick(configReader.inputParams.get("OrderDetailTitle"), "",
+			if (screen.exists(configReader.inputParams.get("completeStatus")) != null) {
+		
+			Pattern completeStatus = new Pattern(configReader.inputParams.get("completeStatus"));
+			screen.wait(completeStatus.similar((float) 0.90), 5).doubleClick();
+			Thread.sleep(3000);
+		
+			}
+			}
+//		Pattern drakes = new Pattern(basePath + configReader.amazonInputParams.get("drakesImage"));
+//		System.out.println("found drakes"+drakes.getFilename());
+//		screen.wait(drakes.similar((float)0.99), 5).doubleClick();
+		
+	//	System.out.println("found drakes");
+		Thread.sleep(3000);
+        if(Client.equals("ACCENT")) {
+		autoitObj.controlClick(configReader.inputParams.get("OrderDetailTitle"), "",
 				configReader.inputParams.get("ModifyOrderButton"));
 		Thread.sleep(3000);
+		}
+        else if(Client.equals("AMAZON")) {
+        	autoitObj.controlClick(configReader.amazonInputParams.get("OrderWindowTitleForAmazon"), "",
+    				configReader.inputParams.get("ModifyOrderButton"));
+    		Thread.sleep(3000);
+        	
+        }
 
-		autoHelper.winWaitActive(configReader.inputParams.get("ModifyOrderTitle"));
-		autoHelper.send(configReader.inputParams.get("ShiftDownKey"), false);
-		autoHelper.send(configReader.inputParams.get("CtrlDownKey"), false);
+		autoitObj.winWaitActive(configReader.inputParams.get("ModifyOrderTitle"));
+		autoitObj.send(configReader.inputParams.get("ShiftDownKey"), false);
+		autoitObj.send(configReader.inputParams.get("CtrlDownKey"), false);
 		// autoHelper.controlSend("Modify Order", "", "[CLASS:TButton;
 		// INSTANCE:1]","{SHIFTDOWN}{CTRLDOWN}",true);
 		Pattern restrictedbuttonImage = new Pattern(configReader.inputParams.get("restrictedbuttonImagePath"));
@@ -103,18 +136,18 @@ public class Helper extends BaseClass {
 		} catch (FindFailed e) {
 			e.printStackTrace();
 		}
-		autoHelper.send(configReader.inputParams.get("UpKeys"), false);
-		autoHelper.controlClick(configReader.inputParams.get("PasswordDialog"), "",
+		autoitObj.send(configReader.inputParams.get("UpKeys"), false);
+		autoitObj.controlClick(configReader.inputParams.get("PasswordDialog"), "",
 				configReader.inputParams.get("PasswordTextbox"));
-		Thread.sleep(3000);
-		autoHelper.send(configReader.inputParams.get("F4Button"), false);
-		Thread.sleep(3000);
-		autoHelper.controlClick(configReader.inputParams.get("PasswordDialog"), "",
+		Thread.sleep(2000);
+		autoitObj.send(configReader.inputParams.get("F4Button"), false);
+		Thread.sleep(2000);
+		autoitObj.controlClick(configReader.inputParams.get("PasswordDialog"), "",
 				configReader.inputParams.get("PasswordDialogOkButton"));
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 
 //********Verify if status combo box is visible
-		Boolean flag = autoHelper.controlCommandIsVisible(configReader.inputParams.get("ModifyOrderTitle"), "",
+		Boolean flag = autoitObj.controlCommandIsVisible(configReader.inputParams.get("ModifyOrderTitle"), "",
 				configReader.inputParams.get("StatusComboBox"));
 		Assert.assertTrue(flag);
 		Thread.sleep(3000);
@@ -123,16 +156,24 @@ public class Helper extends BaseClass {
 	@Test
 	public void discardOrder() throws FindFailed, InterruptedException {
 
-		autoHelper.controlClick(configReader.inputParams.get("ModifyOrderTitle"), "",
+		autoitObj.controlClick(configReader.inputParams.get("ModifyOrderTitle"), "",
 				configReader.inputParams.get("StatusComboBox"));
-		screen.click(configReader.inputParams.get("DiscardedOrderStatus"));
+		Thread.sleep(3000);
+		autoitObj.controlSend(configReader.inputParams.get("ModifyOrderTitle"), "", configReader.inputParams.get("StatusComboBox"), "[DISCARDED]");
+//		screen.click(configReader.inputParams.get("DiscardedOrderStatus"));
 		// discard the order
-
+		Thread.sleep(3000);
+		autoitObj.controlClick(configReader.inputParams.get("ModifyOrderTitle"), "",
+				configReader.inputParams.get("UpdateButton"));
+		Thread.sleep(3000);
+		autoitObj.controlClick(configReader.inputParams.get("OrderWindowTitleForAmazon"), "",
+				configReader.inputParams.get("UpdateButton"));
+		Thread.sleep(3000);
 	}
 
 //	@Test(dependsOnMethods = "sendPOAAndChangeToOutstanding")
 	@Test
-	public void printSCMLabels(String ratioPackPath) throws FindFailed, InterruptedException {
+	public void printSCMLabels(String ratioPackPath, String shipmentOption) throws FindFailed, InterruptedException {
 		System.out.println("inside helper base path is " + basePath);
 
 		Pattern OrderBeingPickedTab = new Pattern(basePath + configReader.inputParams.get("OrdersBeingPicked"));
@@ -165,12 +206,13 @@ public class Helper extends BaseClass {
 //Select Ratio Pack based on your requirement. 
 //Accent Ratio Pack is for partially filled order and
 // FF Ratio Pack is for fully filled order		
-
+     
 		Pattern accentRatioPack = new Pattern(ratioPackPath);
 		// Pattern accentRatioPack = new
 		// Pattern(configReader.inputParams.get(str1+str2));
 		screen.wait(accentRatioPack.similar((float) 0.90), 5).click();
 		Thread.sleep(3000);
+      
 		autoitObj.controlClick(configReader.inputParams.get("SelectRatioPackTitle"), "",
 				configReader.inputParams.get("UpdateButton"));
 		Thread.sleep(3000);
@@ -185,31 +227,59 @@ public class Helper extends BaseClass {
 
 			autoitObj.controlClick(configReader.inputParams.get("ShipmentDetailsTitle"), "",
 					configReader.inputParams.get("CarierDropdown"));
-			Thread.sleep(3000);
-			Pattern starTrack = new Pattern(configReader.inputParams.get("starTrackImagePath"));
-			screen.wait(starTrack.similar((float) 0.90), 5).click();
-			Thread.sleep(3000);
+			Thread.sleep(5000);
+			Pattern ShipmentOption = new Pattern(shipmentOption);
+			screen.wait(ShipmentOption.similar((float) 0.90), 5).click();
+			Thread.sleep(2000);
+	//		autoitObj.controlSend(configReader.inputParams.get("ShipmentDetailsTitle"), "", configReader.inputParams.get("CarierDropdown"), "[Kanes]");
+		//	Thread.sleep(8000);
+			if(Client.equals("AMAZON")) {
+				autoitObj.controlClick(configReader.inputParams.get("ShipmentDetailsTitle"), "",
+						configReader.amazonInputParams.get("AmazonConsignment"));
+				Thread.sleep(3000);
+				autoitObj.controlSend(configReader.inputParams.get("ShipmentDetailsTitle"), "",
+						configReader.amazonInputParams.get("AmazonConsignment"), "1120");
+
+				Thread.sleep(3000);
+				autoitObj.controlClick(configReader.inputParams.get("ShipmentDetailsTitle"), "",
+						configReader.amazonInputParams.get("AmazonDocketNumber"));
+				Thread.sleep(3000);
+				autoitObj.controlSend(configReader.inputParams.get("ShipmentDetailsTitle"), "",
+						configReader.amazonInputParams.get("AmazonDocketNumber"), "2130");
+
+				Thread.sleep(3000);
+				autoitObj.controlClick(configReader.inputParams.get("ShipmentDetailsTitle"), "",
+						configReader.amazonInputParams.get("AmazonContainerReferenceNumber"));
+				Thread.sleep(3000);
+				autoitObj.controlSend(configReader.inputParams.get("ShipmentDetailsTitle"), "",
+						configReader.amazonInputParams.get("AmazonContainerReferenceNumber"), "4250");
+
+				Thread.sleep(2000);
+			}
+			else if(Client.contentEquals("ACCENT"))
+			{
 			autoitObj.controlClick(configReader.inputParams.get("ShipmentDetailsTitle"), "",
 					configReader.inputParams.get("ConsignmentNoteNumber"));
 			Thread.sleep(3000);
 			autoitObj.controlSend(configReader.inputParams.get("ShipmentDetailsTitle"), "",
-					configReader.inputParams.get("ConsignmentNoteNumber"), "abc123");
+					configReader.inputParams.get("ConsignmentNoteNumber"), "1120");
 
 			Thread.sleep(3000);
 			autoitObj.controlClick(configReader.inputParams.get("ShipmentDetailsTitle"), "",
 					configReader.inputParams.get("DocketNumber"));
 			Thread.sleep(3000);
 			autoitObj.controlSend(configReader.inputParams.get("ShipmentDetailsTitle"), "",
-					configReader.inputParams.get("DocketNumber"), "abc123");
+					configReader.inputParams.get("DocketNumber"), "2130");
 
 			Thread.sleep(3000);
 			autoitObj.controlClick(configReader.inputParams.get("ShipmentDetailsTitle"), "",
 					configReader.inputParams.get("ContainerReferenceNumber"));
 			Thread.sleep(3000);
 			autoitObj.controlSend(configReader.inputParams.get("ShipmentDetailsTitle"), "",
-					configReader.inputParams.get("ContainerReferenceNumber"), "abc123");
+					configReader.inputParams.get("ContainerReferenceNumber"), "4250");
 
-			Thread.sleep(3000);
+			Thread.sleep(2000);
+			}
 			autoitObj.controlClick(configReader.inputParams.get("ShipmentDetailsTitle"), "",
 					configReader.inputParams.get("UpdateButton"));
 			Thread.sleep(3000);

@@ -21,6 +21,7 @@ import org.sikuli.script.ImagePath;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
@@ -35,30 +36,24 @@ import utils.SikuliAutomation;
 import utils.TestDataManager;
 import utils.*;
 
+@Test(groups = "AccentTest")
 public class ImportPoTest extends BaseClass {
 
-	// static Logger log = Logger.getLogger(notepad.class.getName());
+// static Logger log = Logger.getLogger(notepad.class.getName());
 
 //	 AutoItX autoitObj ;
 	static Logger log = Logger.getLogger(ImportPoTest.class.getName());
 	private final ConfigReader configReader = ConfigReader.getConfigReader();
 	private String app_url = configReader.inputParams.get("app_url");
 	TestDataManager testdata = new TestDataManager();
-//	private Screen screen;
-	public SikuliAutomation sikuliInstance;
-//	private String basePath;
 	SimpleDateFormat dnt = new SimpleDateFormat("dd-MM-yyyy");
 	Date date = new Date();
 	public static String Status = "";
 	RecentFileRetrieval FileDataUpdate = new RecentFileRetrieval();
-//	ABSHelper helper = new ABSHelper();
 	public Helper helper = new Helper();
 
-	/**
-	 * i Returns if the JVM is 32 or 64 bit version
-	 */
-
-	@BeforeTest
+	
+	@BeforeClass
 	public void setupBefore() {
 
 		try {
@@ -67,9 +62,11 @@ public class ImportPoTest extends BaseClass {
 			calobj.add(Calendar.DAY_OF_MONTH, 30);
 			date = calobj.getTime();
 			System.out.println("date is++++++++++++" + dnt.format(date));
+			Client = "ACCENT";
+			System.out.println("Client is "+Client);
 
 		} catch (Exception ex) {
-			System.out.println("URISyntaxException in get sikuli Object " + ex);
+			System.out.println("Exception is " + ex);
 
 		}
 
@@ -82,7 +79,13 @@ public class ImportPoTest extends BaseClass {
 //		System.out.println("testdata"+testdata.read_property("CreateAssortment", "plan", "beginMonth"));
 
 		autoitObj.run(app_url, "", AutoItX.SW_MAXIMIZE);
-
+		autoitObj.winWaitActive("Select Alias");
+		autoitObj.controlClick("Select Alias","","TComboBox1");
+		autoitObj.controlSend("Select Alias", "", "TComboBox1", "[ABSDB]");
+		Thread.sleep(2000);
+		autoitObj.controlClick("Select Alias","","[CLASS:TBitBtn;INSTANCE:2]");
+	//	Thread.sleep(4000);
+		
 	}
 
 	@Test()
@@ -270,7 +273,7 @@ public class ImportPoTest extends BaseClass {
 			Assert.assertTrue((screen.exists(basePath + configReader.inputParams.get("PendingImagePath")) != null));
 //Change status to PENDING
 			Status = "PENDING";
-			helper.readNotes();
+			helper.readNotes(configReader.inputParams.get("BrandPartnerTitle"));
 		}
 
 	}
@@ -295,6 +298,7 @@ public class ImportPoTest extends BaseClass {
 				autoitObj.controlClick(configReader.inputParams.get("SendPurchaseOrderTitle"), "",
 						configReader.inputParams.get("UpdateButton"));
 				Thread.sleep(2000);
+				Assert.assertTrue((screen.exists(configReader.inputParams.get("OutstandingImagePath")) != null));
 
 				Status = "OUTSANDING";
 			}
@@ -306,7 +310,8 @@ public class ImportPoTest extends BaseClass {
 //	@Test(dependsOnMethods = "sendPOAAndChangeToOutstanding")
 	@Test
 	public void stepsAfterOutstanding() throws FindFailed, InterruptedException {
-		helper.printSCMLabels(configReader.inputParams.get("accentRatioPackImagePath"));
+		
+		helper.printSCMLabels(configReader.inputParams.get("accentRatioPackImagePath"),configReader.inputParams.get("starTrackImagePath"));
 		helper.virtualPick();
 	}
 
@@ -356,7 +361,7 @@ public class ImportPoTest extends BaseClass {
 					configReader.inputParams.get("PasswordDialogOkButton"));
 			Thread.sleep(3000);
 
-			helper.printSCMLabels(configReader.inputParams.get("accentRatioPackImagePath"));
+			helper.printSCMLabels(configReader.inputParams.get("accentRatioPackImagePath"),configReader.inputParams.get("starTrackImagePath"));
 			helper.virtualPick();
 
 			// call complete order() after this function.
@@ -467,7 +472,7 @@ public class ImportPoTest extends BaseClass {
 					configReader.inputParams.get("InformationOkButton"));
 			Thread.sleep(3000);
 
-			helper.readNotes();
+			helper.readNotes(configReader.inputParams.get("BrandPartnerTitle"));
 
 			// keep the file from archive back to original folder with updated filename
 			FileDataUpdate.replaceAllFileAtSource(configReader.inputParams.get("AperakArchivePath"),
@@ -567,7 +572,7 @@ public class ImportPoTest extends BaseClass {
 		FileDataUpdate.replaceAllFileAtSource(configReader.inputParams.get("InvoiceAperakArchivePath"),
 				configReader.inputParams.get("InvoiceAperakDirectoryPath"), "INV_A");
 
-		helper.readNotes();
+		helper.readNotes(configReader.inputParams.get("BrandPartnerTitle"));
 	}
 
 	// @Test (dependsOnMethods = "invoiceAperak")
@@ -576,16 +581,28 @@ public class ImportPoTest extends BaseClass {
 		Assert.assertTrue((screen.exists(configReader.inputParams.get("completeStatus")) != null));
 	}
 
-	@AfterTest
+	@AfterClass
 	public void emptyBin() throws Exception {
-		Pattern completeOrderMenu = new Pattern(configReader.inputParams.get("completeOrderMenuPath"));
-		screen.wait(completeOrderMenu.similar((float) 0.90), 5).click();
+//		Pattern completeOrderMenu = new Pattern(configReader.inputParams.get("completeOrderMenuPath"));
+//		screen.wait(completeOrderMenu.similar((float) 0.90), 5).click();
+//		Thread.sleep(3000);
+//		Assert.assertTrue((screen.exists(configReader.inputParams.get("completeStatus")) != null));
+//		helper.modifyOrderLevelFour();
+//		helper.discardOrder();
+//
+//		
+//		Thread.sleep(3000);		
 		Thread.sleep(3000);
-		Assert.assertTrue((screen.exists(configReader.inputParams.get("completeStatus")) != null));
-		helper.modifyOrderLevelFour();
-		helper.discardOrder();
+		if (autoitObj.winExists("[CLASS:TOrderListForm]")) {
 
-		autoitObj.winClose("[CLASS:TOrderListForm]");
+			String handle = autoitObj.winGetHandle("[CLASS:TOrderListForm]");
+			System.out.println("inside if");
+			Thread.sleep(3000);
+			autoitObj.winClose(handle, "");
+			autoitObj.winKill("[CLASS:TOrderListForm]");
+			Thread.sleep(3000);
+}
+	
 	}
 
 }
